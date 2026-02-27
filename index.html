@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>&lt;model-viewer&gt; template</title>
+    <meta charset="utf-8">
+    <meta name="description" content="&lt;model-viewer&gt; template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
+
+    <!-- ADDED: shop-style layout styles (keeps your existing scripts/buttons unchanged) -->
+    <style>
+      body{
+        margin:0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background:#f6f7f9;
+        color:#111;
+      }
+.animation-section{
+  margin-top:18px;
+}
+
+.animation-title{
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+.animation-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.anim-btn{
+  flex:1;
+  border:1px solid #e5e7eb;
+  background:#ffffff;
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition: all 0.2s ease;
+}
+
+.anim-btn:hover{
+  border-color:#111;
+  background:#f3f4f6;
+}
+
+.anim-btn.primary{
+  background:#111;
+  color:#fff;
+  border:none;
+}
+
+.anim-btn.primary:hover{
+  opacity:0.9;
+}
+      .shop-header{
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(255,255,255,0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #e8e8e8;
+      }
+      .shop-header-inner{
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap: 16px;
+      }
+      .brand{
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        min-width: 220px;
+      }
+      .brand img{
+        height: 34px;
+        width: auto;
+        display:block;
+      }
+      .brand .tagline{
+        font-size:12px;
+        color:#6b7280;
+        line-height:1.2;
+      }
+      .nav{
+        display:flex;
+        gap: 16px;
+        flex-wrap:wrap;
+        align-items:center;
+        justify-content:center;
+      }
+      .nav a{
+        text-decoration:none;
+        color:#4b5563;
+        font-size:14px;
+      }
+      .nav a:hover{ color:#111; }
+      .actions{
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        min-width: 220px;
+        justify-content:flex-end;
+      }
+      .icon-btn{
+        border:1px solid #e5e7eb;
+        background:#fff;
+        border-radius:10px;
+        padding:8px 10px;
+        cursor:pointer;
+        font-size:14px;
+      }
+      .icon-btn:hover{ border-color:#cbd5e1; }
+
+      .shop-shell{
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 22px 18px 48px;
+      }
+      .breadcrumbs{
+        font-size:12px;
+        color:#6b7280;
+        margin: 8px 0 14px;
+      }
+
+      .shop-main{
+        display:grid;
+        grid-template-columns: 1.25fr 0.85fr;
+        gap: 18px;
+      }
+
+      .card{
+        background:#fff;
+        border:1px solid #e8e8e8;
+        border-radius: 18px;
+        box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+      }
+
+      .viewer-card{
+        padding: 14px;
+        position: relative;
+        overflow:hidden;
+      }
+
+      .sale-badge{
+        position:absolute;
+        top: 14px;
+        left: 14px;
+        z-index: 10;
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        pointer-events:none;
+      }
+      .sale-badge img{
+        height: 192px;
+        width:auto;
+        display:block;
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+      }
+
+      /* Make model-viewer fit inside the shopping layout */
+      model-viewer#gear{
+        width: 100%;
+        height: 560px;
+        background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+        border-radius: 14px;
+        border: 1px solid #f0f0f0;
+        position: relative;
+      }
+
+      .thumbs{
+        display:flex;
+        gap: 10px;
+        padding: 12px 6px 2px;
+        overflow:auto;
+      }
+      .thumb{
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        background:#fff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:12px;
+        color:#6b7280;
+        flex: 0 0 auto;
+        cursor: pointer;
+        user-select:none;
+      }
+      .thumb:hover{ border-color:#cbd5e1; color:#111; }
+
+      .info-card{
+        padding: 18px;
+      }
+      .brandline{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .brandname{
+        font-size:12px;
+        color:#6b7280;
+80;
+        te
+xt-transform: uppercase;
+        letter-spacing: .08em;
+      }
+      .title{
+        font-size:28px;
+        line-height:1.15;
+        margin: 0 0 10px;
+      }
+      .price-row{
+        display:flex;
+        align-items:baseline;
+        gap: 10px;
+        margin: 8px 0 14px;
+      }
+      .price{
+        font-size:28px;
+        font-weight:700;
+      }
+      .was{
+        color:#9ca3af;
+        text-decoration: line-through;
+        font-size:14px;
+      }
+      .pill{
+        font-size:12px;
+        font-weight:700;
+        color:#065f46;
+        background:#ecfdf5;
+        border:1px solid #a7f3d0;
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+
+      .divider{
+        height:1px;
+        background:#eee;
+        margin: 14px 0;
+      }
+
+      .spec-grid{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 12px 0 16px;
+      }
+      .spec{
+        border:1px solid #eef0f3;
+        background:#fafafa;
+        border-radius: 14px;
+        padding: 12px;
+      }
+      .spec .k{
+        font-size:12px;
+        color:#6b7280;
+        margin-bottom:4px;
+      }
+      .spec .v{
+        font-size:14px;
+        font-weight:600;
+      }
+
+      .buy-row{
+        display:flex;
+        gap: 10px;
+        align-items:center;
+        margin-top: 12px;
+      }
+      .qty{
+        width: 96px;
+        border:1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 12px 10px;
+        font-size:14px;
+        background:#fff;
+      }
+      .cta{
+        flex:1;
+        border: 0;
+        border-radius: 14px;
+        padding: 13px 14px;
+        font-size:15px;
+        font-weight:700;
+        cursor:pointer;
+        background: #f59e0b;
+        color: #111;
+      }
+      .cta:hover{ filter: brightness(0.96); }
+
+      .note{
+        font-size: 12px;
+        color:#6b7280;
+        margin-top: 10px;
+        line-height:1.4;
+      }
+
+      @media (max-width: 980px){
+        .shop-main{ grid-template-columns: 1fr; }
+        .brand{ min-width: unset; }
+        .actions{ min-width: unset; }
+        model-viewer#gear{ height: 520px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ADDED: Shop header -->
+    <header class="shop-header">
+      <div class="shop-header-inner">
+        <div class="brand">
+          <!-- ADDED: NHG logo (make sure the filename matches your actual file) -->
+          <img src="NHG_Health_Logo_since_July_1,_2025.jpg" alt="NHG">
+          <div class="tagline"></div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#">Home</a>
+          <a href="#">Shop</a>
+          <a href="#">Support</a>
+          <a href="#">About</a>
+        </nav>
+
+        <div class="actions">
+          <button class="icon-btn" type="button">Account</button>
+          <button class="icon-btn" type="button">Cart</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ADDED: Page shell -->
+    <main class="shop-shell">
+      <div class="breadcrumbs">Home / Shop / Folddex</div>
+
+      <section class="shop-main">
+        <!-- LEFT: Product viewer -->
+        <div class="card viewer-card">
+          <!-- ADDED: Flash sale badge (make sure the filename matches your actual file) -->
+          <div class="sale-badge">
+            <img src="Flash Sale.png" alt="Flash Sale">
+          </div>
+
+          <model-viewer
+            src="Final File.glb"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            camera-controls
+            tone-mapping="neutral"
+            poster="poster.png"
+            shadow-intensity="1"
+            animation-name="ArmatureAction.001"
+            id="gear">
+
+            <button class="Hotspot" slot="hotspot-1"
+              data-surface="6 0 900 902 901 0.283 0.219 0.499"
+              data-visibility-attribute="visible"
+              onmouseover="addhotspot1()"
+              onmouseout="removehotspot1()">
+              <div class="HotspotAnnotation" id="hotspot1" style="visibility:hidden">Arch</div>
+            </button>
+
+            <button class="Hotspot" slot="hotspot-2"
+data-surface="5 0 1074 1075 1076 0.073 0.011 0.916"
+              data-visibility-attribute="visible"
+              onmouseover="addhotspot2()"
+              onmouseout="removehotspot2()">
+              <div class="HotspotAnnotation" id="hotspot2" style="visibility:hidden">Base</div>
+            </button>
+
+            <button class="Hotspot" slot="hotspot-3"
+              data-surface="3 0 603 605 604 0.485 0.149 0.366"
+              data-visibility-attribute="visible"
+              onmouseover="addhotspot3()"
+              onmouseout="removehotspot3()">
+              <div class="HotspotAnnotation" id="hotspot3" style="visibility:hidden">Beam</div>
+            </button>
+
+            <div class="progress-bar hide" slot="progress-bar">
+              <div class="update-bar"></div>
+            </div>
+
+            <button slot="ar-button" id="ar-button">View in your space</button>
+
+            <div id="ar-prompt">
+              <img src="ar_hand_prompt.png">
+            </div>
+
+                        
+           
+
+          </model-viewer>
+
+          <!-- ADDED: thumbnail strip (optional visual like reference) -->
+          <div class="thumbs" aria-label="Product views">
+            <div class="thumb" onclick="PBtn01('4.346deg 78.51deg 8.58m')">Front</div>
+            <div class="thumb" onclick="PBtn02('-40.65deg 87.59deg 8.58m')">Angle</div>
+            <div class="thumb" onclick="PBtn03('0.008255deg 3.158deg 8.58m')">Top</div>
+            <div class="thumb" onclick="VBtn01()">Original</div>
+            <div class="thumb" onclick="VBtn02()">Blue</div>
+            <div class="thumb" onclick="VBtn03()">Black</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Product info -->
+        <aside class="card info-card">
+          <div class="brandline">
+            <div class="brandname">NHG</div>
+            <div class="pill">50% OFF</div>
+          </div>
+
+          <h1 class="title">Folddex</h1>
+
+          <div class="price-row">
+            <div class="price">SGD$175</div>
+            <div class="was">SGD$350</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="spec-grid">
+            <div class="spec">
+              <div class="k">Discount</div>
+              <div class="v">Flash Sale</div>
+            </div>
+            <div class="spec">
+              <div class="k">Availability</div>
+              <div class="v">Limited stock</div>
+            </div>
+            <div class="spec">
+              <div class="k">AR Preview</div>
+              <div class="v">Supported</div>
+            </div>
+            <div class="spec">
+              <div class="k">Finish</div>
+              <div class="v">Limted Colors</div>
+            </div>
+          </div>
+
+          <div class="buy-row">
+            <input class="qty" type="number" min="1" value="1" aria-label="Quantity">
+            <button class="cta" type="button">Add to cart</button>
+          </div>
+
+           <div class="animation-section">
+  <div class="animation-title">Product Animation</div>
+  <div class="animation-buttons">
+    <button class="anim-btn primary" onclick="Btn01()">Explode View</button>
+    <button class="anim-btn" onclick="Btn02()">Open to Close</button>
+    <button class="anim-btn" onclick="pauseAnimation()">Pause</button>
+  </div>
+</div>
+
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      function addhotspot1(){ document.getElementById("hotspot1").style.visibility="visible"; }
+      function removehotspot1(){ document.getElementById("hotspot1").style.visibility="hidden"; }
+
+      function addhotspot2(){ document.getElementById("hotspot2").style.visibility="visible"; }
+      function removehotspot2(){ document.getElementById("hotspot2").style.visibility="hidden"; }
+
+      function addhotspot3(){ document.getElementById("hotspot3").style.visibility="visible"; }
+      function removehotspot3(){ document.getElementById("hotspot3").style.visibility="hidden"; }
+    </script>
+
+    <script>
+      function PBtn01(orbit){ document.getElementById('gear').cameraOrbit = orbit; }
+      function PBtn02(orbit){ document.getElementById('gear').cameraOrbit = orbit; }
+      function PBtn03(orbit){ document.getElementById('gear').cameraOrbit = orbit; }
+    </script>
+
+    <script>
+      function VBtn01(){ document.getElementById('gear').variantName = "original"; }
+      function VBtn02(){ document.getElementById('gear').variantName = "blue"; }
+      function VBtn03(){ document.getElementById('gear').variantName = "black"; }
+    </script>
+
+    <script>
+      function Btn01(){
+        const mv = document.getElementById('gear');
+        mv.pause();
+        mv.animationName = "exploded ";
+        mv.play();
+      }
+      function Btn02(){
+        const mv = document.getElementById('gear');
+        mv.pause();
+        mv.animationName = "ArmatureAction.001";
+        mv.play();
+      }
+      function pauseAnimation(){ document.getElementById('gear').pause(); }
+    </script>
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  </body>
+</html>

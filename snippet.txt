@@ -1,0 +1,18 @@
+<model-viewer src="fuck you jibai glb.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.png" shadow-intensity="1" animation-name="ArmatureAction.001">
+    <button class="Hotspot" slot="hotspot-1" data-surface="6 0 900 902 901 0.283 0.219 0.499" data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">Arch</div>
+    </button><button class="Hotspot" slot="hotspot-2" data-surface="5 0 1074 1075 1076 0.073 0.011 0.916" data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">Base</div>
+    </button><button class="Hotspot" slot="hotspot-3" data-surface="3 0 603 605 604 0.485 0.149 0.366" data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">Beam</div>
+    </button>
+    <div class="progress-bar hide" slot="progress-bar">
+        <div class="update-bar"></div>
+    </div>
+    <button slot="ar-button" id="ar-button">
+        View in your space
+    </button>
+    <div id="ar-prompt">
+        <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
+    </div>
+</model-viewer>
